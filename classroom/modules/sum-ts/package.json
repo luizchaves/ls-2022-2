@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "start": "node sum.js",
+    "dev": "tsc sum.ts"
+  },
+  "dependencies": {
+    "typescript": "^4.7.4"
+  }
+}
