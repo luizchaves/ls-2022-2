@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      table,
+      td {
+        border: 1px solid black;
+      }
+
+      table {
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      const companies = [
+        {
+          name: 'Amazon',
+          founded: 1994,
+          industry: 'E-Commerce, Cloud',
+          kind: 'Internet company',
+        },
+        {
+          name: 'Facebook',
+          founded: 2004,
+          industry: 'Social',
+          kind: 'Internet company',
+        },
+        {
+          name: 'Alphabet Inc.',
+          founded: 2015,
+          industry: 'Search, Cloud, Advertising',
+          kind: 'Internet company',
+        },
+      ];
+
+      function showCompanies(companies) {
+        const rows = companies
+          .map((company) => [company.name, company.founded])
+          .map((company) => `<tr><td>${company.join('</td><td>')}</td></tr>`)
+          .join('');
+
+        return `<table>${rows}</table>`;
+      }
+
+      document.write(showCompanies(companies));
+    </script>
+  </body>
+</html>
