@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Projetos IFPB</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <style>
+      .collapsed {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center my-5">Projetos de Computação (IFPB-JP)</h1>
+
+      <div
+        class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 projects"
+        data-masonry='{"percentPosition": true }'
+      ></div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
+      integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
+      crossorigin="anonymous"
+      async
+    ></script>
+    <script src="./data/projects.js"></script>
+    <script>
+      function getProjectCard({
+        titulo,
+        resumo,
+        inicio_execucao,
+        fim_execucao,
+        participantes,
+        area_conhecimento,
+      }) {
+        return `<div class="col">
+          <div class="card">
+            <div class="card-header fs-5">
+              ${titulo}
+            </div>
+            <div class="card-body">
+              ${resumo && `<p class="collapsed"><strong>Resumo:</strong> ${resumo}</p>`}
+              <p><strong>Duração:</strong> ${inicio_execucao} - ${fim_execucao}</p>
+              <p><strong>Participantes:</strong> ${participantes
+                .map(({ nome }) => nome)
+                .join(', ')}</p>
+              <p><span class="badge rounded-pill text-bg-secondary">${area_conhecimento}</span></p>
+            </div>
+          </div>
+        </div>`;
+      }
+
+      function compareDates(date1, date2) {
+        const [day1, month1, year1] = date1.split('/');
+        const [day2, month2, year2] = date2.split('/');
+
+        if (year1 > year2) return -1;
+        if (year1 < year2) return 1;
+        if (month1 > month2) return -1;
+        if (month1 < month2) return 1;
+        if (day1 > day2) return -1;
+        if (day1 < day2) return 1;
+        return 0;
+      }
+
+      const projectContent = projects
+        .filter(
+          (project) =>
+            project.uo.sigla === 'CAMPUS-JP' &&
+            ['CIÊNCIA DA COMPUTAÇÃO', 'CIÊNCIA DA INFORMAÇÃO'].includes(
+              project.area_conhecimento
+            )
+        )
+        .sort((a, b) => compareDates(a.inicio_execucao, b.inicio_execucao))
+        .map((project) => getProjectCard(project))
+        .join('');
+
+      const projectContainer = document.querySelector('.projects');
+
+      projectContainer.innerHTML = projectContent;
+    </script>
+  </body>
+</html>
