@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      input {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="text" name="operand1" />
+    <input type="text" name="operand2" />
+    <button onclick="calc('+')">+</button>
+    <button onclick="calc('-')">-</button>
+    <input type="text" name="result" disabled />
+    <!-- <div></div> -->
+    <script>
+      const result = document.querySelector('div');
+
+      function calc(operator) {
+        const operand1 = document.querySelector('[name=operand1]').value;
+        const operand2 = document.querySelector('[name=operand2]').value;
+
+        // const result = document.querySelector('div');
+        // result.innerText = eval(`${operand1} ${operator} ${operand2}`);
+
+        const result = document.querySelector('[name=result]');
+        result.value = eval(`${operand1} ${operator} ${operand2}`);
+      }
+    </script>
+  </body>
+</html>
