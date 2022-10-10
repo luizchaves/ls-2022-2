@@ -1,12 +1,12 @@
-export const investments = [
+export const investiments = [
   {
     id: 1,
     name: 'Banco Inter',
     type: 'LCI',
     category: 'Pós',
     interest: '97% CDI',
-    start: '01/10/2022',
-    end: '23/09/2023',
+    start: '2022-10-01',
+    end: '2023-09-23',
     value: 100,
   },
   {
@@ -15,8 +15,8 @@ export const investments = [
     type: 'CDB',
     category: 'IPCA',
     interest: 'IPCA + 9,08%',
-    start: '01/10/2022',
-    end: '28/09/2023',
+    start: '2022-10-01',
+    end: '2023-09-28',
     value: 50,
   },
   {
@@ -25,8 +25,19 @@ export const investments = [
     type: 'LCA',
     category: 'Pré',
     interest: '12%',
-    start: '01/10/2022',
-    end: '26/09/2023',
+    start: '2022-10-01',
+    end: '2023-09-26',
     value: 50,
   },
 ];
+
+export const investimentTypes = [
+  'LCA',
+  'LCI',
+  'CDB',
+  'CRI',
+  'CRA',
+  'Tesouro Direto',
+];
+
+export const investimentCategories = ['Pré', 'Pós', 'IPCA'];

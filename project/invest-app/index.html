@@ -14,7 +14,18 @@
   </head>
   <body>
     <div class="container">
-      <h1 class="text-center my-5">Investimentos</h1>
+      <h1 class="text-center my-5">
+        Investimentos
+        <button
+          class="btn btn-dark fw-bold float-end rounded-circle"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasRight"
+          aria-controls="offcanvasRight"
+        >
+          +
+        </button>
+      </h1>
       <table class="table">
         <thead class="table-dark">
           <tr>
@@ -30,6 +41,78 @@
         </thead>
         <tbody></tbody>
       </table>
+    </div>
+
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="offcanvasRight"
+      aria-labelledby="offcanvasRightLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasRightLabel">
+          Cadastrar Investimento
+        </h5>
+
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <form id="createInvestimentForm" onsubmit="handleSubmit(event)">
+          <div class="mb-3">
+            <label for="name" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="name" name="name" />
+          </div>
+          <div class="mb-3">
+            <label for="type" class="form-label">Tipo</label>
+            <select class="form-control" id="type" name="type"></select>
+          </div>
+          <div class="mb-3">
+            <label for="category" class="form-label">Categoria</label>
+            <select class="form-control" id="category" name="category"></select>
+          </div>
+          <div class="mb-3">
+            <label for="interest" class="form-label">Rentabilidade</label>
+            <input
+              type="text"
+              class="form-control"
+              id="interest"
+              name="interest"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="start" class="form-label">Entrada</label>
+            <input type="date" class="form-control" id="start" name="start" />
+          </div>
+          <div class="mb-3">
+            <label for="end" class="form-label">Resgate</label>
+            <input type="date" class="form-control" id="end" name="end" />
+          </div>
+          <div class="mb-3">
+            <label for="value" class="form-label">Valor</label>
+            <input
+              type="number"
+              step="0.01"
+              class="form-control"
+              id="value"
+              name="value"
+            />
+          </div>
+          <div class="mb-3">
+            <button
+              type="submit"
+              class="btn btn-dark"
+              data-bs-dismiss="offcanvas"
+            >
+              Cadastrar
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
