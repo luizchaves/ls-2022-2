@@ -7,6 +7,7 @@ import {
 import Investiment from '../models/Investiment.js';
 
 window.handleSubmit = handleSubmit;
+window.removeInvestimentRow = removeInvestimentRow;
 
 const table = document.querySelector('tbody');
 
@@ -34,7 +35,7 @@ function formatCurrency(value) {
 }
 
 function insertInvestimentRow(investiment) {
-  const view = `<tr>
+  const view = `<tr id="investiment-${investiment.id}">
     <th scope="row">${investiment.id}</th>
     <td>${investiment.name}</td>
     <td>${investiment.type}</td>
@@ -43,9 +44,26 @@ function insertInvestimentRow(investiment) {
     <td>${formatDate(investiment.start)}</td>
     <td>${formatDate(investiment.end)}</td>
     <td>${formatCurrency(investiment.value)}</td>
+    <td>
+      <i class="fa-solid fa-trash-can" onclick="removeInvestimentRow(${
+        investiment.id
+      })"></i>
+    </td>
   </tr>`;
 
   table.insertAdjacentHTML('afterbegin', view);
+}
+
+function removeInvestimentRow(id) {
+  const confirmed = confirm('Deseja realmente excluir este investimento?');
+
+  if (confirmed) {
+    const row = document.querySelector(`#investiment-${id}`);
+  
+    row.remove();
+  
+    Investiment.destroy(id);
+  }
 }
 
 function getNextInvestimentId() {
