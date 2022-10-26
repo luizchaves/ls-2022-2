@@ -1,0 +1,44 @@
+{
+  "investiments": [
+    {
+      "id": 1,
+      "name": "Banco Inter",
+      "type": "LCI",
+      "category": "Pós",
+      "interest": "97% CDI",
+      "start": "2022-10-01",
+      "end": "2023-09-23",
+      "value": 100
+    },
+    {
+      "id": 2,
+      "name": "BTG Pactual",
+      "type": "CDB",
+      "category": "IPCA",
+      "interest": "IPCA + 9,08%",
+      "start": "2022-10-01",
+      "end": "2023-09-28",
+      "value": 50
+    },
+    {
+      "id": 3,
+      "name": "Daycoval",
+      "type": "LCA",
+      "category": "Pré",
+      "interest": "12%",
+      "start": "2022-10-01",
+      "end": "2023-09-26",
+      "value": 50
+    },
+    {
+      "name": "Tesouro Selic",
+      "type": "Tesouro Direto",
+      "category": "Pós",
+      "interest": "100% SELIC",
+      "start": "2022-10-26",
+      "end": "2027-01-01",
+      "value": 300,
+      "id": 4
+    }
+  ]
+}

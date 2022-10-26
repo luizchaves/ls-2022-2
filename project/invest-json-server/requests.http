@@ -1,0 +1,44 @@
+@host = http://127.0.0.1:3000
+
+### Get all investiments
+
+GET {{host}}/investiments HTTP/1.1
+
+### Get specific investiment
+
+GET {{host}}/investiments/1 HTTP/1.1
+
+
+### Create investiment
+
+POST {{host}}/investiments HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Tesouro Selic",
+  "type": "Tesouro Direto",
+  "category": "Pós",
+  "interest": "100% SELIC",
+  "start": "2022-10-26",
+  "end": "2027-01-01",
+  "value": 300
+}
+
+### Update investiment
+
+PUT {{host}}/investiments/4 HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Tesouro Selic",
+  "type": "Tesouro Direto",
+  "category": "Pós",
+  "interest": "100% SELIC",
+  "start": "2022-10-26",
+  "end": "2027-01-01",
+  "value": 400
+}
+
+### Delete investiment
+
+DELETE {{host}}/investiment/4 HTTP/1.1

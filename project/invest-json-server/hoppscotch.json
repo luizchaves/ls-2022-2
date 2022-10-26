@@ -1,0 +1,114 @@
+[
+  {
+    "v": 1,
+    "name": "Invest-data",
+    "folders": [],
+    "requests": [
+      {
+        "v": "1",
+        "endpoint": "http://localhost:3000/investiments",
+        "name": "Get all investiments",
+        "params": [],
+        "headers": [],
+        "method": "GET",
+        "auth": {
+          "authType": "none",
+          "authActive": true,
+          "addTo": "Headers",
+          "key": "",
+          "value": ""
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": null,
+          "body": null
+        }
+      },
+      {
+        "v": "1",
+        "endpoint": "http://localhost:3000/investiments",
+        "name": "Get specific investiment",
+        "params": [],
+        "headers": [],
+        "method": "GET",
+        "auth": {
+          "authType": "none",
+          "authActive": true,
+          "addTo": "Headers",
+          "key": "",
+          "value": ""
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": null,
+          "body": null
+        }
+      },
+      {
+        "v": "1",
+        "endpoint": "http://localhost:3000/investiments",
+        "name": "Create investiment",
+        "params": [],
+        "headers": [],
+        "method": "POST",
+        "auth": {
+          "authType": "none",
+          "authActive": true,
+          "addTo": "Headers",
+          "key": "",
+          "value": ""
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n  \"name\": \"Tesouro Selic\",\n  \"type\": \"Tesouro Direto\",\n  \"category\": \"Pós\",\n  \"interest\": \"100% SELIC\",\n  \"start\": \"2022-10-26\",\n  \"end\": \"2027-01-01\",\n  \"value\": 300\n}"
+        }
+      },
+      {
+        "v": "1",
+        "endpoint": "http://localhost:3000/investiments/4",
+        "name": "Update investiment",
+        "params": [],
+        "headers": [],
+        "method": "PUT",
+        "auth": {
+          "authType": "none",
+          "authActive": true,
+          "addTo": "Headers",
+          "key": "",
+          "value": ""
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": "application/json",
+          "body": "{\n  \"name\": \"Tesouro Selic\",\n  \"type\": \"Tesouro Direto\",\n  \"category\": \"Pós\",\n  \"interest\": \"100% SELIC\",\n  \"start\": \"2022-10-26\",\n  \"end\": \"2027-01-01\",\n  \"value\": 400\n}"
+        }
+      },
+      {
+        "v": "1",
+        "endpoint": "http://localhost:3000/investiments/4",
+        "name": "Remove investiment",
+        "params": [],
+        "headers": [],
+        "method": "DELETE",
+        "auth": {
+          "authType": "none",
+          "authActive": true,
+          "addTo": "Headers",
+          "key": "",
+          "value": ""
+        },
+        "preRequestScript": "",
+        "testScript": "",
+        "body": {
+          "contentType": null,
+          "body": null
+        }
+      }
+    ]
+  }
+]
