@@ -74,15 +74,31 @@
         <form id="createInvestimentForm" onsubmit="handleSubmit(event)">
           <div class="mb-3">
             <label for="name" class="form-label">Nome</label>
-            <input type="text" class="form-control" id="name" name="name" />
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              required
+            />
           </div>
           <div class="mb-3">
             <label for="type" class="form-label">Tipo</label>
-            <select class="form-control" id="type" name="type"></select>
+            <select
+              class="form-control"
+              id="type"
+              name="type"
+              required
+            ></select>
           </div>
           <div class="mb-3">
             <label for="category" class="form-label">Categoria</label>
-            <select class="form-control" id="category" name="category"></select>
+            <select
+              class="form-control"
+              id="category"
+              name="category"
+              required
+            ></select>
           </div>
           <div class="mb-3">
             <label for="interest" class="form-label">Rentabilidade</label>
@@ -91,15 +107,30 @@
               class="form-control"
               id="interest"
               name="interest"
+              pattern="([a-z\+\s]+)?(\d+(,\d{1,2})?%)(\s\w+)?"
+              placeholder="100% CDI ou IPCA + 6% ou 12%"
+              required
             />
           </div>
           <div class="mb-3">
             <label for="start" class="form-label">Entrada</label>
-            <input type="date" class="form-control" id="start" name="start" />
+            <input
+              type="date"
+              class="form-control"
+              id="start"
+              name="start"
+              required
+            />
           </div>
           <div class="mb-3">
             <label for="end" class="form-label">Resgate</label>
-            <input type="date" class="form-control" id="end" name="end" />
+            <input
+              type="date"
+              class="form-control"
+              id="end"
+              name="end"
+              required
+            />
           </div>
           <div class="mb-3">
             <label for="value" class="form-label">Valor</label>
@@ -109,16 +140,11 @@
               class="form-control"
               id="value"
               name="value"
+              required
             />
           </div>
           <div class="mb-3">
-            <button
-              type="submit"
-              class="btn btn-dark"
-              data-bs-dismiss="offcanvas"
-            >
-              Cadastrar
-            </button>
+            <button type="submit" class="btn btn-dark">Cadastrar</button>
           </div>
         </form>
       </div>

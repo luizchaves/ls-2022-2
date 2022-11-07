@@ -59,9 +59,9 @@ function removeInvestimentRow(id) {
 
   if (confirmed) {
     const row = document.querySelector(`#investiment-${id}`);
-  
+
     row.remove();
-  
+
     Investiment.destroy(id);
   }
 }
@@ -72,8 +72,8 @@ function getNextInvestimentId() {
   return Math.max(...ids) + 1;
 }
 
-function loadInvestiments() {
-  const data = Investiment.readAll() ?? Investiment.load(investiments);
+async function loadInvestiments() {
+  const data = await Investiment.readAll();
 
   data.map((investiment) => insertInvestimentRow(investiment));
 }
@@ -96,14 +96,12 @@ function loadInvestimentsCategories() {
   category.innerHTML = categoryContent;
 }
 
-function handleSubmit(event) {
+async function handleSubmit(event) {
   event.preventDefault();
 
-  const data = Object.fromEntries(new FormData(createInvestimentForm));
+  const investiment = Object.fromEntries(new FormData(createInvestimentForm));
 
-  const newinvestiment = { ...data, id: getNextInvestimentId() };
-
-  insertInvestimentRow(newinvestiment);
+  const newinvestiment = await insertInvestimentRow(investiment);
 
   Investiment.create(newinvestiment);
 

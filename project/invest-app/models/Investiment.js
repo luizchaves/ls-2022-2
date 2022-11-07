@@ -1,58 +1,71 @@
-function load(investments) {
-  localStorage.setItem(
-    'investments-app:investments',
-    JSON.stringify(investments)
-  );
+const domain = 'http://127.0.0.1:3000';
 
-  return investments;
+async function create(investment) {
+  const url = `${domain}/investiments`;
+
+  const config = {
+    method: 'post',
+    body: JSON.stringify(investment),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const response = await fetch(url, config);
+
+  const investiment = response.json();
+
+  return investiment;
 }
 
-function create(investment) {
-  const investments = readAll();
+async function readAll() {
+  const url = `${domain}/investiments`;
 
-  const newinvestments = [...investments, investment];
+  const response = await fetch(url);
 
-  load(newinvestments);
+  const investiments = response.json();
 
-  return investment;
+  return investiments;
 }
 
-function readAll() {
-  return JSON.parse(localStorage.getItem('investments-app:investments'));
+async function read(id) {
+  const url = `${domain}/investiments/${id}`;
+
+  const response = await fetch(url);
+
+  const investiments = response.json();
+
+  return investiments;
 }
 
-function read(id) {
-  const investments = readAll();
+async function update(id, investment) {
+  const url = `${domain}/investiments/${id}`;
 
-  const investment = investments.find((investment) => investment.id === id);
+  const config = {
+    method: 'put',
+    body: JSON.stringify(investment),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
 
-  return investment;
+  const response = await fetch(url, config);
+
+  const investiment = response.json();
+
+  return investiment;
 }
 
-function update(id, investment) {
-  const investments = readAll();
+async function destroy(id) {
+  const url = `${domain}/investiments/${id}`;
 
-  const index = investments.findIndex((investment) => investment.id === id);
+  const config = {
+    method: 'delete',
+  };
 
-  if (index >= 0) {
-    investments[index] = { id, ...investment };
-  }
+  const response = await fetch(url, config);
 
-  load(investments);
-
-  return investment;
+  return response.ok;
 }
 
-function destroy(id) {
-  const investments = readAll();
-
-  const index = investments.findIndex((investment) => investment.id === id);
-
-  if (index >= 0) {
-    investments.splice(index, 1);
-  }
-
-  load(investments);
-}
-
-export default { load, create, readAll, read, update, destroy };
+export default { create, readAll, read, update, destroy };
