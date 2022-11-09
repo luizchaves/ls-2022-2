@@ -1,9 +1,14 @@
+import '@fortawesome/fontawesome-free/css/all.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/js/bootstrap.js';
+import './css/style.css';
+
 import {
   investimentTypes,
   investimentCategories,
-} from '../data/investiments.js';
+} from './data/investiments.js';
 
-import Investiment from '../models/Investiment.js';
+import Investiment from './models/Investiment.js';
 
 window.handleSubmit = handleSubmit;
 window.removeInvestimentRow = removeInvestimentRow;

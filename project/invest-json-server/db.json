@@ -39,6 +39,16 @@
       "end": "2027-01-01",
       "value": 300,
       "id": 4
+    },
+    {
+      "name": "Tesouro IPCA",
+      "type": "Tesouro Direto",
+      "category": "IPCA",
+      "interest": "IPCA + 5,62%",
+      "start": "2022-11-09",
+      "end": "2026-01-01",
+      "value": "500",
+      "id": 5
     }
   ]
 }
