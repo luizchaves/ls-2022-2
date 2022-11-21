@@ -49,6 +49,16 @@
       "end": "2026-01-01",
       "value": "500",
       "id": 5
+    },
+    {
+      "name": "Tesouro IPCA 2045",
+      "type": "Tesouro Direto",
+      "category": "IPCA",
+      "interest": "IPCA + 6,15%",
+      "start": "2022-11-21",
+      "end": "2045-01-01",
+      "value": "1000",
+      "id": 6
     }
   ]
 }

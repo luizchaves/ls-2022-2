@@ -1,4 +1,27 @@
-function Investiment({ name, type, category, interest, start, end, value }) {
+function formatDate(date) {
+  date = new Date(date + 'T03:00:00');
+
+  const options = {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  };
+
+  return date.toLocaleString('pt-BR', options);
+}
+
+function formatCurrency(value) {
+  value = Number(value);
+
+  const options = {
+    style: 'currency',
+    currency: 'BRL',
+  };
+
+  return value.toLocaleString('pt-br', options);
+}
+
+function InvestCard({ name, type, category, interest, start, end, value }) {
   return (
     <div className="col">
       <div className="card">
@@ -15,13 +38,13 @@ function Investiment({ name, type, category, interest, start, end, value }) {
             <div className="col-6 text-end">{interest}</div>
 
             <div className="col-6">Entrada:</div>
-            <div className="col-6 text-end">{start}</div>
+            <div className="col-6 text-end">{formatDate(start)}</div>
 
             <div className="col-6">Resgate:</div>
-            <div className="col-6 text-end">{end}</div>
+            <div className="col-6 text-end">{formatDate(end)}</div>
 
             <div className="col-6">Valor:</div>
-            <div className="col-6 text-end">{value}</div>
+            <div className="col-6 text-end">{formatCurrency(value)}</div>
           </div>
         </div>
       </div>
@@ -29,4 +52,4 @@ function Investiment({ name, type, category, interest, start, end, value }) {
   );
 }
 
-export default Investiment;
+export default InvestCard;
