@@ -12,9 +12,19 @@ function InvestDrawer({ investiments, setInvestiments }) {
 
   const investimentCategories = ['Pré', 'Pós', 'IPCA'];
 
-  const [investiment, setInvestiment] = useState({});
+  const emptyInvestiment = {
+    name: '',
+    type: investimentTypes[0],
+    category: investimentCategories[0],
+    interest: '',
+    start: '',
+    end: '',
+    value: '',
+  };
 
-  const createInvestimentData = (investiment) => {
+  const [investiment, setInvestiment] = useState(emptyInvestiment);
+
+  const createInvestimentData = async (investiment) => {
     const url = 'http://localhost:3000/investiments';
 
     const config = {
@@ -25,21 +35,23 @@ function InvestDrawer({ investiments, setInvestiments }) {
       body: JSON.stringify(investiment),
     };
 
-    fetch(url, config);
+    const res = await fetch(url, config);
+
+    const newInvestiment = await res.json();
+
+    return newInvestiment;
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
-    investiment.type = investiment.type ?? investimentTypes[0];
-
-    investiment.category = investiment.category ?? investimentCategories[0];
 
     console.log(investiment);
 
-    createInvestimentData(investiment);
+    const newInvestimento = await createInvestimentData(investiment);
 
-    setInvestiments([...investiments, investiment]);
+    setInvestiments([...investiments, newInvestimento]);
+
+    setInvestiment(emptyInvestiment);
   };
 
   const handleChange = (event) => {
@@ -79,6 +91,7 @@ function InvestDrawer({ investiments, setInvestiments }) {
               id="name"
               name="name"
               onChange={handleChange}
+              value={investiment.name}
               required
             />
           </div>
@@ -91,6 +104,7 @@ function InvestDrawer({ investiments, setInvestiments }) {
               id="type"
               name="type"
               onChange={handleChange}
+              value={investiment.type}
               required
             >
               {investimentTypes.map((type) => (
@@ -107,6 +121,7 @@ function InvestDrawer({ investiments, setInvestiments }) {
               id="category"
               name="category"
               onChange={handleChange}
+              value={investiment.category}
               required
             >
               {investimentCategories.map((category) => (
@@ -126,6 +141,7 @@ function InvestDrawer({ investiments, setInvestiments }) {
               pattern="([a-zA-Z\+\s]+)?(\d+(,\d{1,2})?%)(\s\w+)?"
               placeholder="100% CDI ou IPCA + 6% ou 12%"
               onChange={handleChange}
+              value={investiment.interest}
               required
             />
           </div>
@@ -139,6 +155,7 @@ function InvestDrawer({ investiments, setInvestiments }) {
               id="start"
               name="start"
               onChange={handleChange}
+              value={investiment.start}
               required
             />
           </div>
@@ -152,6 +169,7 @@ function InvestDrawer({ investiments, setInvestiments }) {
               id="end"
               name="end"
               onChange={handleChange}
+              value={investiment.end}
               required
             />
           </div>
@@ -166,6 +184,7 @@ function InvestDrawer({ investiments, setInvestiments }) {
               id="value"
               name="value"
               onChange={handleChange}
+              value={investiment.value}
               required
             />
           </div>
