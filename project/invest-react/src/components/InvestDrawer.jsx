@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 function InvestDrawer({ investiments, setInvestiments }) {
   const investimentTypes = [
@@ -21,6 +21,8 @@ function InvestDrawer({ investiments, setInvestiments }) {
     end: '',
     value: '',
   };
+
+  const closeBtnRef = useRef(null);
 
   const [investiment, setInvestiment] = useState(emptyInvestiment);
 
@@ -45,13 +47,13 @@ function InvestDrawer({ investiments, setInvestiments }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log(investiment);
-
     const newInvestimento = await createInvestimentData(investiment);
 
     setInvestiments([...investiments, newInvestimento]);
 
     setInvestiment(emptyInvestiment);
+
+    closeBtnRef.current.click();
   };
 
   const handleChange = (event) => {
@@ -76,7 +78,9 @@ function InvestDrawer({ investiments, setInvestiments }) {
           type="button"
           className="btn-close"
           data-bs-dismiss="offcanvas"
+          data-bs-target="#offcanvasRight"
           aria-label="Close"
+          ref={closeBtnRef}
         ></button>
       </div>
       <div className="offcanvas-body">
