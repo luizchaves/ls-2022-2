@@ -1,3 +1,5 @@
+import { FaTrashAlt } from 'react-icons/fa';
+
 function formatDate(date) {
   date = new Date(date + 'T03:00:00');
 
@@ -21,7 +23,21 @@ function formatCurrency(value) {
   return value.toLocaleString('pt-br', options);
 }
 
-function InvestCard({ name, type, category, interest, start, end, value }) {
+function InvestCard({
+  id,
+  name,
+  type,
+  category,
+  interest,
+  start,
+  end,
+  value,
+  setRemovedInvestiment,
+}) {
+  const handleRemoveClick = () => {
+    setRemovedInvestiment({ id, name });
+  };
+
   return (
     <div className="col">
       <div className="card">
@@ -46,6 +62,14 @@ function InvestCard({ name, type, category, interest, start, end, value }) {
             <div className="col-6">Valor:</div>
             <div className="col-6 text-end">{formatCurrency(value)}</div>
           </div>
+        </div>
+        <div className="card-footer">
+          <FaTrashAlt
+            className="float-end"
+            data-bs-toggle="modal"
+            data-bs-target="#removeModal"
+            onClick={handleRemoveClick}
+          />
         </div>
       </div>
     </div>

@@ -47,9 +47,9 @@ function InvestDrawer({ investiments, setInvestiments }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const newInvestimento = await createInvestimentData(investiment);
+    const newInvestiment = await createInvestimentData(investiment);
 
-    setInvestiments([...investiments, newInvestimento]);
+    setInvestiments([...investiments, newInvestiment]);
 
     setInvestiment(emptyInvestiment);
 

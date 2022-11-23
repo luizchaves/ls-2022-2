@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 import InvestCard from './components/InvestCard';
 import InvestDrawer from './components/InvestDrawer';
+import Modal from './components/Modal';
 
 import 'bootstrap';
 
@@ -9,6 +10,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 function App() {
   const [investiments, setInvestiments] = useState([]);
+
+  const [removedInvestiment, setRemovedInvestiment] = useState({
+    id: 0,
+    name: '',
+  });
 
   useEffect(() => {
     fetch('http://localhost:3000/investiments')
@@ -18,7 +24,7 @@ function App() {
 
   return (
     <>
-      <div className="container">
+      <div className="container mb-5">
         <h1 className="text-center my-5">
           Investimentos
           <button
@@ -33,7 +39,11 @@ function App() {
         </h1>
         <div className="row row-cols-1 row-cols-md-2 row-cols-md-3 g-4">
           {investiments.map((investiment) => (
-            <InvestCard key={investiment.id} {...investiment} />
+            <InvestCard
+              key={investiment.id}
+              {...investiment}
+              setRemovedInvestiment={setRemovedInvestiment}
+            />
           ))}
         </div>
       </div>
@@ -41,6 +51,14 @@ function App() {
         investiments={investiments}
         setInvestiments={setInvestiments}
       />
+      <Modal
+        title="Remover Investimento"
+        investiments={investiments}
+        setInvestiments={setInvestiments}
+        removeInvestimentId={removedInvestiment.id}
+      >
+        Deseja remover o investimento {removedInvestiment.name}?
+      </Modal>
     </>
   );
 }

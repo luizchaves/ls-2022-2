@@ -31,26 +31,6 @@
       "value": 50
     },
     {
-      "name": "Tesouro Selic",
-      "type": "Tesouro Direto",
-      "category": "Pós",
-      "interest": "100% SELIC",
-      "start": "2022-10-26",
-      "end": "2027-01-01",
-      "value": 300,
-      "id": 4
-    },
-    {
-      "name": "Tesouro IPCA",
-      "type": "Tesouro Direto",
-      "category": "IPCA",
-      "interest": "IPCA + 5,62%",
-      "start": "2022-11-09",
-      "end": "2026-01-01",
-      "value": "500",
-      "id": 5
-    },
-    {
       "name": "Tesouro IPCA 2045",
       "type": "Tesouro Direto",
       "category": "IPCA",
