@@ -1,27 +1,20 @@
 import { useRef, useState } from 'react';
 
+const investimentTypes = ['LCA', 'LCI', 'CDB', 'CRI', 'CRA', 'Tesouro Direto'];
+
+const investimentCategories = ['Pré', 'Pós', 'IPCA'];
+
+const emptyInvestiment = {
+  name: '',
+  type: investimentTypes[0],
+  category: investimentCategories[0],
+  interest: '',
+  start: '',
+  end: '',
+  value: undefined,
+};
+
 function InvestDrawer({ investiments, setInvestiments }) {
-  const investimentTypes = [
-    'LCA',
-    'LCI',
-    'CDB',
-    'CRI',
-    'CRA',
-    'Tesouro Direto',
-  ];
-
-  const investimentCategories = ['Pré', 'Pós', 'IPCA'];
-
-  const emptyInvestiment = {
-    name: '',
-    type: investimentTypes[0],
-    category: investimentCategories[0],
-    interest: '',
-    start: '',
-    end: '',
-    value: '',
-  };
-
   const closeBtnRef = useRef(null);
 
   const [investiment, setInvestiment] = useState(emptyInvestiment);
@@ -59,7 +52,9 @@ function InvestDrawer({ investiments, setInvestiments }) {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    setInvestiment({ ...investiment, [name]: value });
+    const result = name === 'value' ? Number(value) : value;
+
+    setInvestiment({ ...investiment, [name]: result });
   };
 
   return (

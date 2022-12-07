@@ -37,8 +37,18 @@
       "interest": "IPCA + 6,15%",
       "start": "2022-11-21",
       "end": "2045-01-01",
-      "value": "1000",
+      "value": 1000,
       "id": 6
+    },
+    {
+      "name": "Tesouro Selic 2027",
+      "type": "Tesouro Direto",
+      "category": "Pós",
+      "interest": "100% SELIC",
+      "start": "2022-12-07",
+      "end": "2027-01-01",
+      "value": 1000,
+      "id": 7
     }
   ]
 }

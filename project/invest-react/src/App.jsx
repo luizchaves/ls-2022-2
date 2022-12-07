@@ -1,64 +1,58 @@
-import { useState, useEffect } from 'react';
-
-import InvestCard from './components/InvestCard';
-import InvestDrawer from './components/InvestDrawer';
-import Modal from './components/Modal';
+import { NavLink, Outlet } from 'react-router-dom';
 
 import 'bootstrap';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
 function App() {
-  const [investiments, setInvestiments] = useState([]);
-
-  const [removedInvestiment, setRemovedInvestiment] = useState({
-    id: 0,
-    name: '',
-  });
-
-  useEffect(() => {
-    fetch('http://localhost:3000/investiments')
-      .then((res) => res.json())
-      .then((initialInvestiments) => setInvestiments(initialInvestiments));
-  }, []);
-
   return (
     <>
-      <div className="container mb-5">
-        <h1 className="text-center my-5">
-          Investimentos
+      <nav className="navbar navbar-expand-lg bg-light">
+        <div className="container">
+          <NavLink className="navbar-brand" to="/">
+            InvestApp
+          </NavLink>
           <button
-            className="btn btn-dark fw-bold float-end rounded-circle"
+            className="navbar-toggler"
             type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasRight"
-            aria-controls="offcanvasRight"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
           >
-            +
+            <span className="navbar-toggler-icon"></span>
           </button>
-        </h1>
-        <div className="row row-cols-1 row-cols-md-2 row-cols-md-3 g-4">
-          {investiments.map((investiment) => (
-            <InvestCard
-              key={investiment.id}
-              {...investiment}
-              setRemovedInvestiment={setRemovedInvestiment}
-            />
-          ))}
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? 'nav-link active' : 'nav-link'
+                  }
+                  aria-current="page"
+                  to="/"
+                >
+                  Investimentos
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? 'nav-link active' : 'nav-link'
+                  }
+                  to="/report"
+                >
+                  Extrato
+                </NavLink>
+              </li>
+            </ul>
+          </div>
         </div>
+      </nav>
+      <div className="container mb-5">
+        <Outlet />
       </div>
-      <InvestDrawer
-        investiments={investiments}
-        setInvestiments={setInvestiments}
-      />
-      <Modal
-        title="Remover Investimento"
-        investiments={investiments}
-        setInvestiments={setInvestiments}
-        removeInvestimentId={removedInvestiment.id}
-      >
-        Deseja remover o investimento {removedInvestiment.name}?
-      </Modal>
     </>
   );
 }
