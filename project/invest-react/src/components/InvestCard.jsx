@@ -1,17 +1,10 @@
 import { FaTrashAlt } from 'react-icons/fa';
+import { useInvestiment } from '../contexts/InvestimentContext';
 import { formatCurrency, formatDate } from '../services/format';
 
-function InvestCard({
-  id,
-  name,
-  type,
-  category,
-  interest,
-  start,
-  end,
-  value,
-  setRemovedInvestiment,
-}) {
+function InvestCard({ id, name, type, category, interest, start, end, value }) {
+  const { setRemovedInvestiment } = useInvestiment();
+
   const handleRemoveClick = () => {
     setRemovedInvestiment({ id, name });
   };

@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+import { useEffect } from 'react';
+import Chart from '../components/Chart';
+import { useInvestiment } from '../contexts/InvestimentContext';
 
 import { formatCurrency } from '../services/format';
 
@@ -45,38 +46,11 @@ function countTypes(investiments) {
   return new Set(types).size;
 }
 
-function Chart({ data }) {
-  return (
-    <BarChart
-      width={600}
-      height={400}
-      data={data}
-      margin={{
-        top: 5,
-        right: 30,
-        left: 20,
-        bottom: 5,
-      }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis />
-      <Tooltip
-        formatter={function (value, name) {
-          return `${formatCurrency(value)}`;
-        }}
-      />
-      <Bar dataKey="value" fill="#8884d8" />
-    </BarChart>
-  );
-}
 function Report() {
-  const [investiments, setInvestiments] = useState([]);
+  const { investiments, loadInvestiments } = useInvestiment();
 
   useEffect(() => {
-    fetch('http://localhost:3000/investiments')
-      .then((res) => res.json())
-      .then((initialInvestiments) => setInvestiments(initialInvestiments));
+    loadInvestiments();
   }, []);
 
   return (
@@ -85,19 +59,19 @@ function Report() {
       <div className="row">
         <div className="col-3 mb-3">
           <div className="card">
-            <div className="card-header fw-bold">Total</div>
+            <div className="card-header fw-bold">Valor Total</div>
             <div className="card-body fs-3">{calcTotal(investiments)}</div>
           </div>
         </div>
         <div className="col-3 mb-3">
           <div className="card">
-            <div className="card-header fw-bold">Investimentos</div>
+            <div className="card-header fw-bold">Total de Investimentos</div>
             <div className="card-body fs-3">{investiments.length}</div>
           </div>
         </div>
         <div className="col-3 mb-3">
           <div className="card">
-            <div className="card-header fw-bold">Categorias</div>
+            <div className="card-header fw-bold">Total de Categorias</div>
             <div className="card-body fs-3">
               {countCategories(investiments)}
             </div>
@@ -105,13 +79,15 @@ function Report() {
         </div>
         <div className="col-3 mb-3">
           <div className="card">
-            <div className="card-header fw-bold">Tipos</div>
+            <div className="card-header fw-bold">Total de Tipos</div>
             <div className="card-body fs-3">{countTypes(investiments)}</div>
           </div>
         </div>
         <div className="col-6 mb-3">
           <div className="card">
-            <div className="card-header fw-bold">Categorias</div>
+            <div className="card-header fw-bold">
+              Investimentos por Categorias
+            </div>
             <div className="card-body">
               <Chart data={calcSummary(investiments, 'category')} />
             </div>
@@ -119,7 +95,7 @@ function Report() {
         </div>
         <div className="col-6 mb-3">
           <div className="card">
-            <div className="card-header fw-bold">Tipos</div>
+            <div className="card-header fw-bold">Investimentos por Tipos</div>
             <div className="card-body">
               <Chart data={calcSummary(investiments, 'type')} />
             </div>

@@ -1,28 +1,24 @@
 import { useRef, useState } from 'react';
+import { useInvestiment } from '../contexts/InvestimentContext';
 
-function InvestDrawer({ investiments, setInvestiments }) {
-  const investimentTypes = [
-    'LCA',
-    'LCI',
-    'CDB',
-    'CRI',
-    'CRA',
-    'Tesouro Direto',
-  ];
+const investimentTypes = ['LCA', 'LCI', 'CDB', 'CRI', 'CRA', 'Tesouro Direto'];
 
-  const investimentCategories = ['Pré', 'Pós', 'IPCA'];
+const investimentCategories = ['Pré', 'Pós', 'IPCA'];
 
-  const emptyInvestiment = {
-    name: '',
-    type: investimentTypes[0],
-    category: investimentCategories[0],
-    interest: '',
-    start: '',
-    end: '',
-    value: '',
-  };
+const emptyInvestiment = {
+  name: '',
+  type: investimentTypes[0],
+  category: investimentCategories[0],
+  interest: '',
+  start: '',
+  end: '',
+  value: '',
+};
 
+function InvestDrawer() {
   const closeBtnRef = useRef(null);
+
+  const { investiments, setInvestiments } = useInvestiment();
 
   const [investiment, setInvestiment] = useState(emptyInvestiment);
 

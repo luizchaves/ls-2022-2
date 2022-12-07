@@ -1,21 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import InvestCard from '../components/InvestCard';
 import InvestDrawer from '../components/InvestDrawer';
 import Modal from '../components/Modal';
+import { useInvestiment } from '../contexts/InvestimentContext';
 
 function Investiments() {
-  const [investiments, setInvestiments] = useState([]);
-
-  const [removedInvestiment, setRemovedInvestiment] = useState({
-    id: 0,
-    name: '',
-  });
+  const { investiments, removedInvestiment, loadInvestiments } =
+    useInvestiment();
 
   useEffect(() => {
-    fetch('http://localhost:3000/investiments')
-      .then((res) => res.json())
-      .then((initialInvestiments) => setInvestiments(initialInvestiments));
+    loadInvestiments();
   }, []);
 
   return (
@@ -34,23 +29,11 @@ function Investiments() {
       </h1>
       <div className="row row-cols-1 row-cols-md-2 row-cols-md-3 g-4">
         {investiments.map((investiment) => (
-          <InvestCard
-            key={investiment.id}
-            {...investiment}
-            setRemovedInvestiment={setRemovedInvestiment}
-          />
+          <InvestCard key={investiment.id} {...investiment} />
         ))}
       </div>
-      <InvestDrawer
-        investiments={investiments}
-        setInvestiments={setInvestiments}
-      />
-      <Modal
-        title="Remover Investimento"
-        investiments={investiments}
-        setInvestiments={setInvestiments}
-        removeInvestimentId={removedInvestiment.id}
-      >
+      <InvestDrawer />
+      <Modal title="Remover Investimento">
         Deseja remover o investimento {removedInvestiment.name}?
       </Modal>
     </>
