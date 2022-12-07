@@ -1,27 +1,5 @@
 import { FaTrashAlt } from 'react-icons/fa';
-
-function formatDate(date) {
-  date = new Date(date + 'T03:00:00');
-
-  const options = {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-  };
-
-  return date.toLocaleString('pt-BR', options);
-}
-
-function formatCurrency(value) {
-  value = Number(value);
-
-  const options = {
-    style: 'currency',
-    currency: 'BRL',
-  };
-
-  return value.toLocaleString('pt-br', options);
-}
+import { formatCurrency, formatDate } from '../services/format';
 
 function InvestCard({
   id,

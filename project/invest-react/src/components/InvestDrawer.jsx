@@ -59,7 +59,12 @@ function InvestDrawer({ investiments, setInvestiments }) {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    setInvestiment({ ...investiment, [name]: value });
+    const newValue = name === 'value' ? Number(value) : value;
+
+    setInvestiment({
+      ...investiment,
+      [name]: newValue,
+    });
   };
 
   return (
