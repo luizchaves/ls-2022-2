@@ -1,10 +1,8 @@
-function Modal({
-  title,
-  investiments,
-  setInvestiments,
-  removeInvestimentId,
-  children,
-}) {
+import { useInvestiment } from '../contexts/InvestimentContext';
+
+function Modal({ title, removeInvestimentId, children }) {
+  const { investiments, setInvestiments } = useInvestiment();
+
   const handleRemoveClick = () => {
     const newInvestiments = investiments.filter(
       (investiment) => investiment.id !== removeInvestimentId

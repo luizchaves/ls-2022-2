@@ -3,6 +3,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 import 'bootstrap';
 
 import 'bootstrap/dist/css/bootstrap.css';
+import { InvestimentProvider } from './contexts/InvestimentContext';
 
 function App() {
   return (
@@ -51,7 +52,9 @@ function App() {
         </div>
       </nav>
       <div className="container mb-5">
-        <Outlet />
+        <InvestimentProvider>
+          <Outlet />
+        </InvestimentProvider>
       </div>
     </>
   );

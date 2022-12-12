@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useInvestiment } from '../contexts/InvestimentContext';
 
 const investimentTypes = ['LCA', 'LCI', 'CDB', 'CRI', 'CRA', 'Tesouro Direto'];
 
@@ -14,7 +15,9 @@ const emptyInvestiment = {
   value: undefined,
 };
 
-function InvestDrawer({ investiments, setInvestiments }) {
+function InvestDrawer() {
+  const { investiments, setInvestiments } = useInvestiment();
+
   const closeBtnRef = useRef(null);
 
   const [investiment, setInvestiment] = useState(emptyInvestiment);

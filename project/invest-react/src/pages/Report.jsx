@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Chart from '../components/Chart';
+import { useInvestiment } from '../contexts/InvestimentContext';
 import { formatCurrency } from '../services/format';
 
 const calcTotalInvestiments = (investiments) => {
@@ -45,12 +46,10 @@ function calcSummary(investiments, name) {
 }
 
 function Report() {
-  const [investiments, setInvestiments] = useState([]);
+  const { investiments, loadInvestiments } = useInvestiment();
 
   useEffect(() => {
-    fetch('http://localhost:3000/investiments')
-      .then((res) => res.json())
-      .then((initialInvestiments) => setInvestiments(initialInvestiments));
+    loadInvestiments();
   }, []);
 
   return (
