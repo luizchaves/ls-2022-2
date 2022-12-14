@@ -4,58 +4,47 @@ import 'bootstrap';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import { InvestimentProvider } from './contexts/InvestimentContext';
+import { Navbar, Container, Nav } from 'react-bootstrap';
 
 function App() {
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-light">
-        <div className="container">
-          <NavLink className="navbar-brand" to="/">
+      <Navbar bg="light" expand="lg">
+        <Container>
+          <NavLink as={Navbar.Brand} className="navbar-brand" to="/">
             InvestApp
           </NavLink>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive ? 'nav-link active' : 'nav-link'
-                  }
-                  aria-current="page"
-                  to="/"
-                >
-                  Investimentos
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive ? 'nav-link active' : 'nav-link'
-                  }
-                  to="/report"
-                >
-                  Extrato
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <div className="container mb-5">
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <NavLink
+                as={Nav.Link}
+                className={({ isActive }) =>
+                  isActive ? 'nav-link active' : 'nav-link'
+                }
+                aria-current="page"
+                to="/"
+              >
+                Investimentos
+              </NavLink>
+              <NavLink
+                as={Nav.Link}
+                className={({ isActive }) =>
+                  isActive ? 'nav-link active' : 'nav-link'
+                }
+                to="/report"
+              >
+                Extrato
+              </NavLink>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      <Container className="mb-5">
         <InvestimentProvider>
           <Outlet />
         </InvestimentProvider>
-      </div>
+      </Container>
     </>
   );
 }

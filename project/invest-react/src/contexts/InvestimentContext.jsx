@@ -5,6 +5,10 @@ import api from '../services/api';
 export const InvestimentContext = createContext({});
 
 export function InvestimentProvider({ children }) {
+  const [showModal, setShowModal] = useState(false);
+
+  const [showOffcanvas, setShowOffcanvas] = useState(false);
+
   const [investiments, setInvestiments] = useState([]);
 
   const [removedInvestiment, setRemovedInvestiment] = useState({
@@ -21,6 +25,10 @@ export function InvestimentProvider({ children }) {
   return (
     <InvestimentContext.Provider
       value={{
+        showModal,
+        setShowModal,
+        showOffcanvas,
+        setShowOffcanvas,
         investiments,
         setInvestiments,
         loadInvestiments,

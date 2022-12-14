@@ -1,49 +1,52 @@
+import { Card, Col, Row } from 'react-bootstrap';
 import { FaTrashAlt } from 'react-icons/fa';
 import { useInvestiment } from '../contexts/InvestimentContext';
 import { formatCurrency, formatDate } from '../services/format';
 
 function InvestCard({ id, name, type, category, interest, start, end, value }) {
-  const { setRemovedInvestiment } = useInvestiment();
+  const { setRemovedInvestiment, setShowModal } = useInvestiment();
 
   const handleRemoveClick = () => {
     setRemovedInvestiment({ id, name });
+
+    setShowModal(true);
   };
 
   return (
-    <div className="col">
-      <div className="card">
-        <div className="card-header">
+    <Col>
+      <Card>
+        <Card.Header>
           <span className="me-1">{name}</span>
           <span className="float-end badge bg-secondary">{type}</span>
-        </div>
-        <div className="card-body">
-          <div className="row">
-            <div className="col-6">Categoria:</div>
-            <div className="col-6 text-end">{category}</div>
+        </Card.Header>
+        <Card.Body>
+          <Row xs={2}>
+            <Col>Categoria:</Col>
+            <Col className="text-end">{category}</Col>
 
-            <div className="col-6">Rentabilidade:</div>
-            <div className="col-6 text-end">{interest}</div>
+            <Col>Rentabilidade:</Col>
+            <Col className="text-end">{interest}</Col>
 
-            <div className="col-6">Entrada:</div>
-            <div className="col-6 text-end">{formatDate(start)}</div>
+            <Col>Entrada:</Col>
+            <Col className="text-end">{formatDate(start)}</Col>
 
-            <div className="col-6">Resgate:</div>
-            <div className="col-6 text-end">{formatDate(end)}</div>
+            <Col>Resgate:</Col>
+            <Col className="text-end">{formatDate(end)}</Col>
 
-            <div className="col-6">Valor:</div>
-            <div className="col-6 text-end">{formatCurrency(value)}</div>
-          </div>
-        </div>
-        <div className="card-footer">
+            <Col>Valor:</Col>
+            <Col className="text-end">{formatCurrency(value)}</Col>
+          </Row>
+        </Card.Body>
+        <Card.Footer>
           <FaTrashAlt
             className="float-end"
             data-bs-toggle="modal"
             data-bs-target="#removeModal"
             onClick={handleRemoveClick}
           />
-        </div>
-      </div>
-    </div>
+        </Card.Footer>
+      </Card>
+    </Col>
   );
 }
 
