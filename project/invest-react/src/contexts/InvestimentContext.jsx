@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { createContext, useState } from 'react';
+import api from '../services/api';
 
 export const InvestimentContext = createContext({});
 
@@ -11,10 +12,10 @@ export function InvestimentProvider({ children }) {
     name: '',
   });
 
-  const loadInvestiments = () => {
-    fetch('http://localhost:3000/investiments')
-      .then((res) => res.json())
-      .then((initialInvestiments) => setInvestiments(initialInvestiments));
+  const loadInvestiments = async () => {
+    const investiments = (await api.get('/investiments')).data;
+
+    setInvestiments(investiments);
   };
 
   return (

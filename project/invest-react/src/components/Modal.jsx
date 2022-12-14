@@ -1,4 +1,5 @@
 import { useInvestiment } from '../contexts/InvestimentContext';
+import api from '../services/api';
 
 function Modal({ title, removeInvestimentId, children }) {
   const { investiments, setInvestiments } = useInvestiment();
@@ -10,13 +11,7 @@ function Modal({ title, removeInvestimentId, children }) {
 
     setInvestiments(newInvestiments);
 
-    const url = `http://localhost:3000/investiments/${removeInvestimentId}`;
-
-    const config = {
-      method: 'delete',
-    };
-
-    fetch(url, config);
+    api.delete(`/investiments/${removeInvestimentId}`);
   };
 
   return (

@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { useInvestiment } from '../contexts/InvestimentContext';
+import api from '../services/api';
 
 const investimentTypes = ['LCA', 'LCI', 'CDB', 'CRI', 'CRA', 'Tesouro Direto'];
 
@@ -23,19 +24,7 @@ function InvestDrawer() {
   const [investiment, setInvestiment] = useState(emptyInvestiment);
 
   const createInvestimentData = async (investiment) => {
-    const url = 'http://localhost:3000/investiments';
-
-    const config = {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(investiment),
-    };
-
-    const res = await fetch(url, config);
-
-    const newInvestiment = await res.json();
+    const newInvestiment = (await api.post('/investiments', investiment)).data;
 
     return newInvestiment;
   };
