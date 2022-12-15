@@ -28,10 +28,10 @@ function InvestCard({ id, name, type, category, interest, start, end, value }) {
             <Col className="text-end">{interest}</Col>
 
             <Col>Entrada:</Col>
-            <Col className="text-end">{formatDate(start)}</Col>
+            <Col className="text-end">{formatDate(start.seconds * 1000)}</Col>
 
             <Col>Resgate:</Col>
-            <Col className="text-end">{formatDate(end)}</Col>
+            <Col className="text-end">{formatDate(end.seconds * 1000)}</Col>
 
             <Col>Valor:</Col>
             <Col className="text-end">{formatCurrency(value)}</Col>

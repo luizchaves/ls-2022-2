@@ -1,5 +1,5 @@
 export function formatDate(date) {
-  date = new Date(date + 'T03:00:00');
+  date = new Date(date);
 
   const options = {
     year: 'numeric',

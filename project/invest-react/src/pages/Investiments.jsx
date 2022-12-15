@@ -4,7 +4,6 @@ import { Button, Modal, Row } from 'react-bootstrap';
 import InvestCard from '../components/InvestCard';
 import InvestDrawer from '../components/InvestDrawer';
 import { useInvestiment } from '../contexts/InvestimentContext';
-import api from '../services/api';
 
 function Investiments() {
   const {
@@ -13,7 +12,7 @@ function Investiments() {
     setShowOffcanvas,
     investiments,
     removedInvestiment,
-    setInvestiments,
+    removeInvestiment,
     loadInvestiments,
   } = useInvestiment();
 
@@ -26,15 +25,9 @@ function Investiments() {
   };
 
   const handleRemoveInvestiment = () => {
-    const newInvestiments = investiments.filter(
-      (investiment) => investiment.id !== removedInvestiment.id
-    );
-
-    setInvestiments(newInvestiments);
+    removeInvestiment(removedInvestiment.id);
 
     setShowModal(false);
-
-    api.delete(`/investiments/${removedInvestiment.id}`);
   };
 
   useEffect(() => {

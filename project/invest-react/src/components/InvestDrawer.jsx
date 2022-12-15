@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
 import { Button, Form, Offcanvas } from 'react-bootstrap';
 import { useInvestiment } from '../contexts/InvestimentContext';
-import api from '../services/api';
 
 const investimentTypes = ['LCA', 'LCI', 'CDB', 'CRI', 'CRA', 'Tesouro Direto'];
 
@@ -18,18 +17,10 @@ const emptyInvestiment = {
 };
 
 function InvestDrawer() {
-  const { investiments, setInvestiments, showOffcanvas, setShowOffcanvas } =
+  const { showOffcanvas, setShowOffcanvas, createInvestiment } =
     useInvestiment();
 
-  const closeBtnRef = useRef(null);
-
   const [investiment, setInvestiment] = useState(emptyInvestiment);
-
-  const createInvestimentData = async (investiment) => {
-    const newInvestiment = (await api.post('/investiments', investiment)).data;
-
-    return newInvestiment;
-  };
 
   const handleCloseOffcanvas = () => {
     setShowOffcanvas(false);
@@ -38,9 +29,7 @@ function InvestDrawer() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const newInvestiment = await createInvestimentData(investiment);
-
-    setInvestiments([...investiments, newInvestiment]);
+    createInvestiment(investiment);
 
     setInvestiment(emptyInvestiment);
 

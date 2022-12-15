@@ -1,6 +1,7 @@
-import { useContext } from 'react';
-import { createContext, useState } from 'react';
-import api from '../services/api';
+import { createContext, useState, useContext } from 'react';
+import { Timestamp } from 'firebase/firestore';
+
+import { Firestore } from '../services/firebase';
 
 export const InvestimentContext = createContext({});
 
@@ -17,9 +18,31 @@ export function InvestimentProvider({ children }) {
   });
 
   const loadInvestiments = async () => {
-    const investiments = (await api.get('/investiments')).data;
+    const investiments = await Firestore.read('investiments');
 
     setInvestiments(investiments);
+  };
+
+  const createInvestiment = async (investiment) => {
+    investiment.start = Timestamp.fromDate(new Date(investiment.start));
+
+    investiment.end = Timestamp.fromDate(new Date(investiment.end));
+
+    const { id } = await Firestore.create('investiments', investiment);
+
+    const newInvestiment = { id, ...investiment };
+
+    setInvestiments([...investiments, newInvestiment]);
+  };
+
+  const removeInvestiment = async (id) => {
+    await Firestore.remove('investiments', id);
+
+    const newInvestiments = investiments.filter(
+      (investiment) => investiment.id !== id
+    );
+
+    setInvestiments(newInvestiments);
   };
 
   return (
@@ -31,9 +54,11 @@ export function InvestimentProvider({ children }) {
         setShowOffcanvas,
         investiments,
         setInvestiments,
-        loadInvestiments,
         removedInvestiment,
         setRemovedInvestiment,
+        loadInvestiments,
+        createInvestiment,
+        removeInvestiment,
       }}
     >
       {children}
