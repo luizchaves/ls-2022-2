@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Investiments from './pages/Investiments';
 import Report from './pages/Report';
 import App from './App';
+import { InvestimentProvider } from './contexts/InvestimentContext';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <InvestimentProvider>
+      <RouterProvider router={router} />
+    </InvestimentProvider>
   </React.StrictMode>
 );

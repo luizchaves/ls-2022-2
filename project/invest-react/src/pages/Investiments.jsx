@@ -1,38 +1,24 @@
-import { useEffect } from 'react';
 import { Button, Modal, Row } from 'react-bootstrap';
 
 import InvestCard from '../components/InvestCard';
-import InvestDrawer from '../components/InvestDrawer';
+import CreateInvestDrawer from '../components/CreateInvestDrawer';
 import { useInvestiment } from '../contexts/InvestimentContext';
 
 function Investiments() {
   const {
-    showModal,
-    setShowModal,
-    setShowOffcanvas,
+    isShowRemoveInvestModal,
+    toogleRemoveInvestModal,
+    toogleCreateInvestDrawer,
     investiments,
-    removedInvestiment,
+    investimentToBeRemoved,
     removeInvestiment,
-    loadInvestiments,
   } = useInvestiment();
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-
-  const handleShowOffcanvas = () => {
-    setShowOffcanvas(true);
-  };
-
   const handleRemoveInvestiment = () => {
-    removeInvestiment(removedInvestiment.id);
+    removeInvestiment(investimentToBeRemoved.id);
 
-    setShowModal(false);
+    toogleRemoveInvestModal();
   };
-
-  useEffect(() => {
-    loadInvestiments();
-  }, []);
 
   return (
     <>
@@ -41,26 +27,30 @@ function Investiments() {
         <Button
           variant="dark"
           className="fw-bold float-end rounded-circle"
-          onClick={handleShowOffcanvas}
+          onClick={toogleCreateInvestDrawer}
         >
           +
         </Button>
       </h1>
       <Row xs={1} md={2} lg={3} className="g-4">
         {investiments.map((investiment) => (
-          <InvestCard key={investiment.id} {...investiment} />
+          <InvestCard key={investiment.id} investiment={investiment} />
         ))}
       </Row>
-      <InvestDrawer />
-      <Modal show={showModal} onHide={handleCloseModal} backdrop="static">
+      <CreateInvestDrawer />
+      <Modal
+        show={isShowRemoveInvestModal}
+        onHide={toogleRemoveInvestModal}
+        backdrop="static"
+      >
         <Modal.Header closeButton>
           <Modal.Title>Remover Investimento</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Deseja remover o investimento {removedInvestiment.name}?
+          Deseja remover o investimento {investimentToBeRemoved.title}?
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
+          <Button variant="secondary" onClick={toogleRemoveInvestModal}>
             Fechar
           </Button>
           <Button variant="primary" onClick={handleRemoveInvestiment}>

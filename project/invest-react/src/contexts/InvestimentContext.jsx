@@ -6,16 +6,25 @@ import { Firestore } from '../services/firebase';
 export const InvestimentContext = createContext({});
 
 export function InvestimentProvider({ children }) {
-  const [showModal, setShowModal] = useState(false);
+  const [isShowRemoveInvestModal, setIsShowRemoveInvestModal] = useState(false);
 
-  const [showOffcanvas, setShowOffcanvas] = useState(false);
+  const [isShowCreateInvestDrawer, setIsShowCreateInvestDrawer] =
+    useState(false);
 
   const [investiments, setInvestiments] = useState([]);
 
-  const [removedInvestiment, setRemovedInvestiment] = useState({
+  const [investimentToBeRemoved, setInvestimentToBeRemoved] = useState({
     id: 0,
-    name: '',
+    title: '',
   });
+
+  const toogleCreateInvestDrawer = () => {
+    setIsShowCreateInvestDrawer(!isShowCreateInvestDrawer);
+  };
+
+  const toogleRemoveInvestModal = () => {
+    setIsShowRemoveInvestModal(!isShowRemoveInvestModal);
+  };
 
   const loadInvestiments = async () => {
     const investiments = await Firestore.read('investiments');
@@ -36,26 +45,26 @@ export function InvestimentProvider({ children }) {
   };
 
   const removeInvestiment = async (id) => {
-    await Firestore.remove('investiments', id);
-
     const newInvestiments = investiments.filter(
       (investiment) => investiment.id !== id
     );
 
     setInvestiments(newInvestiments);
+
+    await Firestore.remove('investiments', id);
   };
 
   return (
     <InvestimentContext.Provider
       value={{
-        showModal,
-        setShowModal,
-        showOffcanvas,
-        setShowOffcanvas,
+        isShowRemoveInvestModal,
+        toogleRemoveInvestModal,
+        isShowCreateInvestDrawer,
+        toogleCreateInvestDrawer,
         investiments,
         setInvestiments,
-        removedInvestiment,
-        setRemovedInvestiment,
+        investimentToBeRemoved,
+        setInvestimentToBeRemoved,
         loadInvestiments,
         createInvestiment,
         removeInvestiment,

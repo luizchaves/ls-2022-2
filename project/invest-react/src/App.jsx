@@ -1,12 +1,20 @@
+import { useEffect } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
+import { Navbar, Container, Nav } from 'react-bootstrap';
+
+import { useInvestiment } from './contexts/InvestimentContext';
 
 import 'bootstrap';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import { InvestimentProvider } from './contexts/InvestimentContext';
-import { Navbar, Container, Nav } from 'react-bootstrap';
 
 function App() {
+  const { loadInvestiments } = useInvestiment();
+
+  useEffect(() => {
+    loadInvestiments();
+  }, []);
+
   return (
     <>
       <Navbar bg="light" expand="lg">
@@ -41,9 +49,7 @@ function App() {
         </Container>
       </Navbar>
       <Container className="mb-5">
-        <InvestimentProvider>
-          <Outlet />
-        </InvestimentProvider>
+        <Outlet />
       </Container>
     </>
   );

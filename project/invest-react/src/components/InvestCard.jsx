@@ -3,20 +3,23 @@ import { FaTrashAlt } from 'react-icons/fa';
 import { useInvestiment } from '../contexts/InvestimentContext';
 import { formatCurrency, formatDate } from '../services/format';
 
-function InvestCard({ id, name, type, category, interest, start, end, value }) {
-  const { setRemovedInvestiment, setShowModal } = useInvestiment();
+function InvestCard({
+  investiment: { id, title, type, category, interestRate, start, end, value },
+}) {
+  const { setInvestimentToBeRemoved, toogleRemoveInvestModal } =
+    useInvestiment();
 
   const handleRemoveClick = () => {
-    setRemovedInvestiment({ id, name });
+    setInvestimentToBeRemoved({ id, title });
 
-    setShowModal(true);
+    toogleRemoveInvestModal();
   };
 
   return (
     <Col>
       <Card>
         <Card.Header>
-          <span className="me-1">{name}</span>
+          <span className="me-1">{title}</span>
           <span className="float-end badge bg-secondary">{type}</span>
         </Card.Header>
         <Card.Body>
@@ -25,7 +28,7 @@ function InvestCard({ id, name, type, category, interest, start, end, value }) {
             <Col className="text-end">{category}</Col>
 
             <Col>Rentabilidade:</Col>
-            <Col className="text-end">{interest}</Col>
+            <Col className="text-end">{interestRate}</Col>
 
             <Col>Entrada:</Col>
             <Col className="text-end">{formatDate(start.seconds * 1000)}</Col>
@@ -38,12 +41,7 @@ function InvestCard({ id, name, type, category, interest, start, end, value }) {
           </Row>
         </Card.Body>
         <Card.Footer>
-          <FaTrashAlt
-            className="float-end"
-            data-bs-toggle="modal"
-            data-bs-target="#removeModal"
-            onClick={handleRemoveClick}
-          />
+          <FaTrashAlt className="float-end" onClick={handleRemoveClick} />
         </Card.Footer>
       </Card>
     </Col>

@@ -1,53 +1,55 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { Button, Form, Offcanvas } from 'react-bootstrap';
+
 import { useInvestiment } from '../contexts/InvestimentContext';
 
 const investimentTypes = ['LCA', 'LCI', 'CDB', 'CRI', 'CRA', 'Tesouro Direto'];
 
 const investimentCategories = ['Pré', 'Pós', 'IPCA'];
 
-const emptyInvestiment = {
-  name: '',
+const initialInvestiment = {
+  title: '',
   type: investimentTypes[0],
   category: investimentCategories[0],
-  interest: '',
+  interestRate: '',
   start: '',
   end: '',
-  value: 0,
+  value: '',
 };
 
-function InvestDrawer() {
-  const { showOffcanvas, setShowOffcanvas, createInvestiment } =
-    useInvestiment();
+function CreateInvestDrawer() {
+  const {
+    isShowCreateInvestDrawer,
+    toogleCreateInvestDrawer,
+    createInvestiment,
+  } = useInvestiment();
 
-  const [investiment, setInvestiment] = useState(emptyInvestiment);
-
-  const handleCloseOffcanvas = () => {
-    setShowOffcanvas(false);
-  };
+  const [investiment, setInvestiment] = useState(initialInvestiment);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     createInvestiment(investiment);
 
-    setInvestiment(emptyInvestiment);
+    setInvestiment(initialInvestiment);
 
-    setShowOffcanvas(false);
+    toogleCreateInvestDrawer();
   };
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
+    let { name, value } = event.target;
 
-    const result = name === 'value' ? Number(value) : value;
+    if (name === 'value') {
+      value = Number(value);
+    }
 
-    setInvestiment({ ...investiment, [name]: result });
+    setInvestiment({ ...investiment, [name]: value });
   };
 
   return (
     <Offcanvas
-      show={showOffcanvas}
-      onHide={handleCloseOffcanvas}
+      show={isShowCreateInvestDrawer}
+      onHide={toogleCreateInvestDrawer}
       placement="end"
     >
       <Offcanvas.Header closeButton>
@@ -55,12 +57,12 @@ function InvestDrawer() {
       </Offcanvas.Header>
       <Offcanvas.Body>
         <Form onSubmit={(event) => handleSubmit(event)}>
-          <Form.Group className="mb-3" id="name">
+          <Form.Group className="mb-3" id="title">
             <Form.Label>Nome</Form.Label>
             <Form.Control
-              name="name"
+              name="title"
               onChange={handleChange}
-              value={investiment.name}
+              value={investiment.title}
               required
             />
           </Form.Group>
@@ -90,22 +92,21 @@ function InvestDrawer() {
               ))}
             </Form.Select>
           </Form.Group>
-          <Form.Group className="mb-3" id="interest">
+          <Form.Group className="mb-3" id="interestRate">
             <Form.Label>Rentabilidade</Form.Label>
             <Form.Control
-              name="interest"
+              name="interestRate"
               pattern="([a-zA-Z\+\s]+)?(\d+(,\d{1,2})?%)(\s\w+)?"
               placeholder="100% CDI ou IPCA + 6% ou 12%"
               onChange={handleChange}
-              value={investiment.interest}
+              value={investiment.interestRate}
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3">
+          <Form.Group className="mb-3" id="start">
             <Form.Label>Entrada</Form.Label>
             <Form.Control
               type="date"
-              id="start"
               name="start"
               onChange={handleChange}
               value={investiment.start}
@@ -129,7 +130,7 @@ function InvestDrawer() {
               step="0.01"
               name="value"
               onChange={handleChange}
-              value={investiment.value === 0 ? ' ' : investiment.value}
+              value={String(investiment.value)}
               required
             />
           </Form.Group>
@@ -142,4 +143,4 @@ function InvestDrawer() {
   );
 }
 
-export default InvestDrawer;
+export default CreateInvestDrawer;

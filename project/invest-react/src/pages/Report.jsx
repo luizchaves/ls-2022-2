@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import Chart from '../components/Chart';
 import { useInvestiment } from '../contexts/InvestimentContext';
 import { formatCurrency } from '../services/format';
@@ -46,11 +45,7 @@ function calcSummary(investiments, name) {
 }
 
 function Report() {
-  const { investiments, loadInvestiments } = useInvestiment();
-
-  useEffect(() => {
-    loadInvestiments();
-  }, []);
+  const { investiments } = useInvestiment();
 
   return (
     <>
