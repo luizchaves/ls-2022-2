@@ -32,7 +32,7 @@ function Investiments() {
           +
         </Button>
       </h1>
-      <Row xs={1} md={2} lg={3} className="g-4">
+      <Row xs={1} md={2} lg={3} xxl={4} className="g-4">
         {investiments.map((investiment) => (
           <InvestCard key={investiment.id} investiment={investiment} />
         ))}
