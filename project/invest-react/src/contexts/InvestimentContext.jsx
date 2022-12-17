@@ -2,10 +2,13 @@ import { createContext, useState, useContext } from 'react';
 import { Timestamp } from 'firebase/firestore';
 
 import { Firestore } from '../services/firebase';
+import { useUserAuth } from './UserAuthContext';
 
 export const InvestimentContext = createContext({});
 
 export function InvestimentProvider({ children }) {
+  const { user } = useUserAuth();
+
   const [isShowRemoveInvestModal, setIsShowRemoveInvestModal] = useState(false);
 
   const [isShowCreateInvestDrawer, setIsShowCreateInvestDrawer] =
@@ -27,7 +30,13 @@ export function InvestimentProvider({ children }) {
   };
 
   const loadInvestiments = async () => {
-    const investiments = await Firestore.read('investiments');
+    let investiments = [];
+
+    try {
+      investiments = await Firestore.readBy('investiments', 'userId', user.uid);
+    } catch (error) {
+      console.log(error);
+    }
 
     setInvestiments(investiments);
   };
@@ -36,6 +45,8 @@ export function InvestimentProvider({ children }) {
     investiment.start = Timestamp.fromDate(new Date(investiment.start));
 
     investiment.end = Timestamp.fromDate(new Date(investiment.end));
+
+    investiment.userId = user.uid;
 
     const { id } = await Firestore.create('investiments', investiment);
 

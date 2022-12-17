@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
+import { getAuth } from 'firebase/auth';
 import {
   collection,
   addDoc,
@@ -8,6 +9,8 @@ import {
   deleteDoc,
   getFirestore,
   updateDoc,
+  query,
+  where,
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -23,6 +26,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const analytics = getAnalytics(app);
+
+export const auth = getAuth(app);
+
 export const db = getFirestore(app);
 
 export const Firestore = {
@@ -37,6 +43,19 @@ export const Firestore = {
     const docRef = collection(db, path);
 
     const docs = await getDocs(docRef);
+
+    docs.forEach((doc) => items.push({ ...doc.data(), id: doc.id }));
+
+    return items;
+  },
+  readBy: async (path, filter, value) => {
+    const items = [];
+
+    const docRef = collection(db, path);
+
+    const q = query(docRef, where(filter, '==', value));
+
+    const docs = await getDocs(q);
 
     docs.forEach((doc) => items.push({ ...doc.data(), id: doc.id }));
 

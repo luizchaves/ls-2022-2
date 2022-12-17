@@ -4,8 +4,12 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Investiments from './pages/Investiments';
 import Report from './pages/Report';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 import App from './App';
+import ProtectedRoute from './components/ProtectedRoute';
 import { InvestimentProvider } from './contexts/InvestimentContext';
+import { UserAuthContextProvider } from './contexts/UserAuthContext';
 
 const router = createBrowserRouter([
   {
@@ -13,12 +17,28 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: '/',
-        element: <Investiments />,
+        path: 'investiments',
+        element: (
+          <ProtectedRoute>
+            <Investiments />
+          </ProtectedRoute>
+        ),
       },
       {
         path: 'report',
-        element: <Report />,
+        element: (
+          <ProtectedRoute>
+            <Report />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/',
+        element: <Login />,
+      },
+      {
+        path: 'signup',
+        element: <Signup />,
       },
     ],
   },
@@ -26,8 +46,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <InvestimentProvider>
-      <RouterProvider router={router} />
-    </InvestimentProvider>
+    <UserAuthContextProvider>
+      <InvestimentProvider>
+        <RouterProvider router={router} />
+      </InvestimentProvider>
+    </UserAuthContextProvider>
   </React.StrictMode>
 );

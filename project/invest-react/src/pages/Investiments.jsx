@@ -3,6 +3,7 @@ import { Button, Modal, Row } from 'react-bootstrap';
 import InvestCard from '../components/InvestCard';
 import CreateInvestDrawer from '../components/CreateInvestDrawer';
 import { useInvestiment } from '../contexts/InvestimentContext';
+import { useEffect } from 'react';
 
 function Investiments() {
   const {
@@ -12,6 +13,7 @@ function Investiments() {
     investiments,
     investimentToBeRemoved,
     removeInvestiment,
+    loadInvestiments,
   } = useInvestiment();
 
   const handleRemoveInvestiment = () => {
@@ -19,6 +21,10 @@ function Investiments() {
 
     toogleRemoveInvestModal();
   };
+
+  useEffect(() => {
+    loadInvestiments();
+  }, []);
 
   return (
     <>
